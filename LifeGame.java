@@ -1,36 +1,40 @@
 import java.util.Arrays;
 
-public class GameOfLife implements Grid {
+public class LifeGame implements Board {
 
-    private int[][] grid;
+    // Integers: 0 or 1 for alive or dead
+    private int[][] board;
 
-    public GameOfLife (int rows, int cols) {
-        grid = new int[rows][cols];
+    public LifeGame(int rows, int cols) {
+        // Construct a 2D array of the given rows and cols size.
+        board = new int[rows][cols];
     }
 
-    // Set values on the grid
+    // Set values on the board
     public void placePattern(int row, int col, int[][] pattern) {
         for (int i = 0; i < pattern.length; i++) {
             for (int j = 0; j < pattern[0].length; j++) {
-                grid[i + row][j + col] = pattern[i][j];
+                board[i + row][j + col] = pattern[i][j];
             }
         }
     }
 
+    // Run the simulation for a number of generations
     public void simulate(int generations) {
         for (int i = 0; i < generations; i++) {
             evolve();
         }
     }
 
+    // Step the simulation forward one generation.
     public void evolve() {
         display();
-        int[][] newGrid = new int[grid.length][grid[0].length];
+        int[][] newGrid = new int[board.length][board[0].length];
 
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
                 int neighbors = countAliveNeighbors(i, j);
-                if (grid[i][j] == 1) {
+                if (board[i][j] == 1) {
                     // Alive cell rules
                     if (neighbors < 2 || neighbors > 3) {
                         newGrid[i][j] = 0; // Dies
@@ -45,7 +49,7 @@ public class GameOfLife implements Grid {
                 }
             }
         }
-        grid = newGrid;
+        board = newGrid;
     }
 
     public int countAliveNeighbors(int row, int col) {
@@ -60,26 +64,29 @@ public class GameOfLife implements Grid {
         return count;
     }
 
+    // Get a value from the grid with "wrap around"
     public int getCell(int row, int col) {
-        int rowLimit = grid.length;
-        int colLimit = grid[0].length;
-        return grid[(row + rowLimit) % rowLimit][(col + colLimit) % colLimit];
+        int rowLimit = board.length;
+        int colLimit = board[0].length;
+        return board[(row + rowLimit) % rowLimit][(col + colLimit) % colLimit];
     }
 
+    // Test helper to get the whole grid state
     public int[][] getGrid() {
-        return grid;
+        return board;
     }
 
-       public void display() {
+    // Test helper to print the current state
+    public void display() {
         System.out.print("\n ");
-        for (int y = 0; y < grid[0].length; y++) {
+        for (int y = 0; y < board[0].length; y++) {
             System.out.print(y % 10 + " ");
         }
 
-        for (int x = 0; x < grid.length; x++) {
+        for (int x = 0; x < board.length; x++) {
             System.out.print("\n" + x % 10);
-            for (int y = 0; y < grid[x].length; y++) {
-                if (grid[x][y] == 1) {
+            for (int y = 0; y < board[x].length; y++) {
+                if (board[x][y] == 1) {
                     System.out.print("⬛");
                 } else {
                     System.out.print("⬜");

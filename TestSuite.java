@@ -1,56 +1,44 @@
 import java.util.Arrays;
 
 public class TestSuite {
-    public static void run()
-    {
-        System.out.println("Starting TestSuite");
-        boolean pass = true;
+    public static void runTests() {
+        System.out.println("Initiating Test Suite");
+        boolean allPassed = true;
 
-        GameOfLife board = new GameOfLife(5, 5);
+        LifeGame gameGrid = new LifeGame(5, 5);
 
-        // Test count neighbors
-        int[][] data = {{ 1 }};
+        // Test neighbor counting
+        int[][] singleCell = {{ 1 }};
 
-        // Set a single cell, then check that it has zero neighbors.
-        board.set(2, 3, data);
-        pass &= expect(board.countNeighbors(2,3), 0, "Single live cell with zero neighbors");
+        // Place a single live cell and check its neighbors
+        gameGrid.placePattern(2, 3, singleCell);
+        allPassed &= verify(gameGrid.countAliveNeighbors(2, 3), 0, "Single live cell should have zero neighbors");
 
-        // Set the middle top neighbor.
-        board.set(1, 2, data);
-        pass &= expect(board.countNeighbors(2,2), 1, "Single live cell with one neighbor");
+        // Place an additional live cell at the top
+        gameGrid.placePattern(1, 2, singleCell);
+        allPassed &= verify(gameGrid.countAliveNeighbors(2, 2), 2, "One neighbor should be detected");
 
-        // Set the bottom middle neighbor.
-        board.set(3, 2, data);
-        pass &= expect(board.countNeighbors(2,2), 2, "Single live cell with two neighbors");
+        // Place another live cell at the bottom
+        gameGrid.placePattern(3, 2, singleCell);
+        allPassed &= verify(gameGrid.countAliveNeighbors(2, 2), 3, "Two neighbors should be detected");
 
-        // Test update state
-        board.step();
-        board.print();
-        pass &= expect(board.get(2,3), 1, "Expect line to rotate");
+        // Test grid evolution
+        gameGrid.evolve();
+        gameGrid.display();
+        allPassed &= verify(gameGrid.getCell(2, 3), 1, "Pattern should evolve correctly");
 
-        if (pass == true)
-        {
-            System.out.println("--- TEST PASSED! Congrats! ---");
-        }
-        else
-        {
-            System.out.println("--- TEST FAILED! :( ---");
+        if (allPassed) {
+            System.out.println("--- ALL TESTS PASSED! Great job! ---");
+        } else {
+            System.out.println("--- SOME TESTS FAILED! Recheck logic. ---");
         }
     }
 
-    private static boolean expect(int input, int expected, String comment)
-    {
-        if (input == expected)
-        {
+    private static boolean verify(int result, int expected, String description) {
+        if (result == expected) {
             return true;
         }
-        System.out.println(comment + ", value: " + input + " not equal to expected: " + expected);
+        System.out.println(description + " | Got: " + result + ", Expected: " + expected);
         return false;
     }
-
-    private static boolean testPattern(int[][] input, int[][] expected)
-    {
-        return true;
-    }
-
 }
