@@ -17,14 +17,12 @@ public class LifeGame implements Grid {
         }
     }
 
-    // Run the simulation for a number of generations
     public void simulate(int generations) {
         for (int i = 0; i < generations; i++) {
             evolve();
         }
     }
 
-    // Step the simulation forward one generation.
     public void evolve() {
         display();
         int[][] newGrid = new int[grid.length][grid[0].length];
@@ -62,19 +60,16 @@ public class LifeGame implements Grid {
         return count;
     }
 
-    // Get a value from the grid with "wrap around"
     public int getCell(int row, int col) {
         int rowLimit = grid.length;
         int colLimit = grid[0].length;
         return grid[(row + rowLimit) % rowLimit][(col + colLimit) % colLimit];
     }
 
-    // Test helper to get the whole grid state
     public int[][] getGrid() {
         return grid;
     }
 
-       // Test helper to print the current state
        public void display() {
         System.out.print("\n ");
         for (int y = 0; y < grid[0].length; y++) {
