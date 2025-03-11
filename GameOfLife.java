@@ -4,7 +4,7 @@ public class GameOfLife implements Grid {
 
     private int[][] grid;
 
-    public LifeGame(int rows, int cols) {
+    public GameOfLife (int rows, int cols) {
         grid = new int[rows][cols];
     }
 
