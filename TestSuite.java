@@ -5,7 +5,7 @@ public class TestSuite {
         System.out.println("Initiating Test Suite");
         boolean allPassed = true;
 
-        LifeGame gameGrid = new LifeGame(5, 5);
+        GameOfLife gameGrid = new GameOfLife(5, 5);
 
         // Test neighbor counting
         int[][] singleCell = {{ 1 }};

@@ -1,16 +1,13 @@
 import java.util.Arrays;
 
-public class LifeGame implements Board {
+public class GameOfLife implements Board {
 
-    // Integers: 0 or 1 for alive or dead
     private int[][] board;
 
-    public LifeGame(int rows, int cols) {
-        // Construct a 2D array of the given rows and cols size.
+    public GameOfLife(int rows, int cols) {
         board = new int[rows][cols];
     }
 
-    // Set values on the board
     public void placePattern(int row, int col, int[][] pattern) {
         for (int i = 0; i < pattern.length; i++) {
             for (int j = 0; j < pattern[0].length; j++) {
@@ -19,14 +16,12 @@ public class LifeGame implements Board {
         }
     }
 
-    // Run the simulation for a number of generations
     public void simulate(int generations) {
         for (int i = 0; i < generations; i++) {
             evolve();
         }
     }
 
-    // Step the simulation forward one generation.
     public void evolve() {
         display();
         int[][] newGrid = new int[board.length][board[0].length];
@@ -64,19 +59,16 @@ public class LifeGame implements Board {
         return count;
     }
 
-    // Get a value from the grid with "wrap around"
     public int getCell(int row, int col) {
         int rowLimit = board.length;
         int colLimit = board[0].length;
         return board[(row + rowLimit) % rowLimit][(col + colLimit) % colLimit];
     }
 
-    // Test helper to get the whole grid state
     public int[][] getGrid() {
         return board;
     }
 
-    // Test helper to print the current state
     public void display() {
         System.out.print("\n ");
         for (int y = 0; y < board[0].length; y++) {
