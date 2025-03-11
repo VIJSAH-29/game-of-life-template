@@ -2,11 +2,9 @@ import java.util.Arrays;
 
 public class LifeGame implements Grid {
 
-    // Integers: 0 or 1 for alive or dead
     private int[][] grid;
 
     public LifeGame(int rows, int cols) {
-        // Construct a 2D array of the given rows and cols size.
         grid = new int[rows][cols];
     }
 
