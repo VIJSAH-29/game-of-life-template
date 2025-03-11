@@ -12,8 +12,8 @@ public class TestSuite {
         int[][] data = {{ 1 }};
 
         // Set a single cell, then check that it has zero neighbors.
-        board.set(2, 2, data);
-        pass &= expect(board.countNeighbors(2,2), 0, "Single live cell with zero neighbors");
+        board.set(2, 3, data);
+        pass &= expect(board.countNeighbors(2,3), 0, "Single live cell with zero neighbors");
 
         // Set the middle top neighbor.
         board.set(1, 2, data);

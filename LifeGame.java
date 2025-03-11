@@ -1,21 +1,28 @@
 import java.util.Arrays;
 
-public class GameOfLife implements Board {
+public class LifeGame implements Grid {
 
     // Integers: 0 or 1 for alive or dead
-    private int[][] board;
+    private int[][] grid;
 
-    public GameOfLife(int x, int y)
-    {
-        // Construct a 2d array of the given x and y size.
+    public LifeGame(int rows, int cols) {
+        // Construct a 2D array of the given rows and cols size.
+        grid = new int[rows][cols];
     }
 
-    // Set values on the board
-    public void set(int x, int y, int[][] data) {
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data[0].length; j++) {
-                board[i + x][j + y] = data[i][j];
+    // Set values on the grid
+    public void placePattern(int row, int col, int[][] pattern) {
+        for (int i = 0; i < pattern.length; i++) {
+            for (int j = 0; j < pattern[0].length; j++) {
+                grid[i + row][j + col] = pattern[i][j];
             }
+        }
+    }
+
+    // Run the simulation for a number of generations
+    public void simulate(int generations) {
+        for (int i = 0; i < generations; i++) {
+            evolve();
         }
     }
 
