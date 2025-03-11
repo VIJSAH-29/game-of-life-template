@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class LifeGame implements Grid {
+public class GameOfLife implements Grid {
 
     private int[][] grid;
 
