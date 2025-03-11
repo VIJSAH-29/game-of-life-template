@@ -75,3 +75,24 @@ public class LifeGame implements Grid {
     public int[][] getGrid() {
         return grid;
     }
+
+       // Test helper to print the current state
+       public void display() {
+        System.out.print("\n ");
+        for (int y = 0; y < grid[0].length; y++) {
+            System.out.print(y % 10 + " ");
+        }
+
+        for (int x = 0; x < grid.length; x++) {
+            System.out.print("\n" + x % 10);
+            for (int y = 0; y < grid[x].length; y++) {
+                if (grid[x][y] == 1) {
+                    System.out.print("⬛");
+                } else {
+                    System.out.print("⬜");
+                }
+            }
+        }
+        System.out.println();
+    }
+}
